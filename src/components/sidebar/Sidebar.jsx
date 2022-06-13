@@ -8,12 +8,20 @@ import DataArrayIcon from '@mui/icons-material/DataArray';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FaceIcon from '@mui/icons-material/Face';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Link } from 'react-router-dom';
 import './sidebar.scss';
+import { DarkModeContext } from './../../context/darkModeContext';
+import { useContext } from 'react';
 
 const Sidebar = () => {
+
+    const { dispatch } = useContext(DarkModeContext)
+
     return ( 
         <div className="sidebar">
-            <div className='top'><span className='logo'>tayeadmin</span></div>
+            <Link to='/' style={{textDecoration: "none"}}>
+                <div className='top'><span className='logo'>tayeadmin</span></div>
+            </Link>
             <hr />
             <div className='center'>
                 <ul>
@@ -23,14 +31,18 @@ const Sidebar = () => {
                         <span>Dashboard</span>
                     </li>
                     <p className="title">LIST</p>
-                    <li>
-                        <PeopleAltIcon className='icon' />
+                    <Link to="/users" style={{ textDecoration: "none" }}>
+                        <li>
+                        <PeopleAltIcon className="icon" />
                         <span>Users</span>
-                    </li>
-                    <li>
-                        <ProductionQuantityLimitsIcon className='icon' />
+                        </li>
+                    </Link>
+                    <Link to="/products" style={{ textDecoration: "none" }}>
+                        <li>
+                        <ProductionQuantityLimitsIcon className="icon" />
                         <span>Products</span>
-                    </li>
+                        </li>
+                    </Link>
                     <p className="title">USEFUL</p>
                     <li>
                         <BarChartIcon className='icon' />
@@ -65,9 +77,14 @@ const Sidebar = () => {
                 </ul>
             </div>
             <div className='bottom'>
-                <div className="colorOption"></div>
-                <div className="colorOption"></div>
-                <div className="colorOption"></div>
+                <div 
+                    className="colorOption"
+                    onClick={() => dispatch({ type: "LIGHT"})}
+                ></div>
+                <div 
+                    className="colorOption"
+                    onClick={() => dispatch({ type: "DARK"})}
+                    ></div>
             </div>
         </div>
      );
